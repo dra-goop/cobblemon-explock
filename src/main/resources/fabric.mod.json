@@ -3,9 +3,9 @@
 	"id": "cobblemon-explock",
 	"version": "${version}",
 	"name": "Cobblemon explock",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A server side mod to lock a pokémon's exp gain",
 	"authors": [
-		"Me!"
+		"UnsafeDodo"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -16,21 +16,14 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"unsafedodo.cobblemonexplock.ExampleMod"
-		],
-		"client": [
-			"unsafedodo.cobblemonexplock.ExampleModClient"
+			"unsafedodo.cobblemonexplock.ExpLock"
 		]
 	},
 	"mixins": [
-		"cobblemon-explock.mixins.json",
-		{
-			"config": "cobblemon-explock.client.mixins.json",
-			"environment": "client"
-		}
+		"cobblemon-explock.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.22",
+		"fabricloader": ">=0.14.18",
 		"minecraft": "~1.19.2",
 		"java": ">=17",
 		"fabric-api": "*"
