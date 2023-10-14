@@ -17,15 +17,8 @@ repositories {
 	}
 
 	maven {
-		url = uri("https://cursemaven.com")
-		content {
-			includeGroup("curse.maven")
-		}
-	}
-
-	/*maven {
 		url = "https://api.modrinth.com/maven"
-	}*/
+	}
 }
 
 loom {
@@ -51,8 +44,7 @@ dependencies {
 
 	include(modImplementation('me.lucko:fabric-permissions-api:0.2-SNAPSHOT'))
 
-	//modImplementation("maven.modrinth:cobblemon:${property("cobblemon_modrinth_file_id")}")
-	modImplementation("curse.maven:cobblemon-687131:${property("cobblemon_curse_file_id")}")
+	modImplementation("maven.modrinth:cobblemon:${property("cobblemon_modrinth_file_id")}")
 }
 
 processResources {

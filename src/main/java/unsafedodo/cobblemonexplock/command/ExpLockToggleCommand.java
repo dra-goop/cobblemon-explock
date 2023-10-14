@@ -31,9 +31,9 @@ public class ExpLockToggleCommand {
             Pokemon pokemon = partyStore.get(slot);
             if(pokemon != null){
                 boolean state = ExpData.setExpState((IPokemonDataSaver) pokemon);
-                context.getSource().sendFeedback(Text.literal("Exp gain state for "+pokemon.getDisplayName().getString()+" changed to "+state).formatted(Formatting.GREEN), false);
+                context.getSource().sendFeedback(() -> Text.literal("Exp lock state for "+pokemon.getDisplayName().getString()+" changed to "+state).formatted(Formatting.GREEN), false);
             } else {
-                context.getSource().sendFeedback(Text.literal("Invalid slot").formatted(Formatting.RED), false);
+                context.getSource().sendFeedback(() -> Text.literal("Invalid slot").formatted(Formatting.RED), false);
                 return -1;
             }
         } catch (NoPokemonStoreException e){
