@@ -1,7 +1,6 @@
 package unsafedodo.cobblemonexplock.command;
 
 import com.cobblemon.mod.common.Cobblemon;
-import com.cobblemon.mod.common.api.storage.NoPokemonStoreException;
 import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.mojang.brigadier.CommandDispatcher;
@@ -25,20 +24,16 @@ public class ExpLockToggleCommand {
     }
 
     private static int run(CommandContext<ServerCommandSource> context) {
-        try{
-            PlayerPartyStore partyStore = Cobblemon.INSTANCE.getStorage().getParty(context.getSource().getPlayer().getUuid());
+            PlayerPartyStore partyStore = Cobblemon.INSTANCE.getStorage().getParty(context.getSource().getPlayer());
             int slot = (IntegerArgumentType.getInteger(context, "slotNumber")-1);
             Pokemon pokemon = partyStore.get(slot);
             if(pokemon != null){
                 boolean state = ExpData.setExpState((IPokemonDataSaver) pokemon);
-                context.getSource().sendFeedback(Text.literal("Exp gain state for "+pokemon.getDisplayName().getString()+" changed to "+state).formatted(Formatting.GREEN), false);
+                context.getSource().sendFeedback(() -> Text.literal("Exp gain state for "+pokemon.getDisplayName().getString()+" changed to "+state).formatted(Formatting.GREEN), false);
             } else {
-                context.getSource().sendFeedback(Text.literal("Invalid slot").formatted(Formatting.RED), false);
+                context.getSource().sendFeedback(() -> Text.literal("Invalid slot").formatted(Formatting.RED), false);
                 return -1;
             }
-        } catch (NoPokemonStoreException e){
-            e.printStackTrace();
-        }
 
         return 0;
     }
