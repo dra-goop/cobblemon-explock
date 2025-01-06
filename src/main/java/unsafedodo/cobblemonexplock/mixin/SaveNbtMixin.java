@@ -2,6 +2,7 @@ package unsafedodo.cobblemonexplock.mixin;
 
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.DynamicRegistryManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +22,7 @@ public abstract class SaveNbtMixin implements IPokemonDataSaver {
     }
 
     @Inject(method = "loadFromNBT", at = @At("TAIL"))
-    protected void loadFromNbt(NbtCompound nbt, CallbackInfoReturnable<Pokemon> cir){
+    protected void loadFromNbt(DynamicRegistryManager drm, NbtCompound nbt, CallbackInfoReturnable<Pokemon> cir){
         if(nbt.contains("explock")){
             persistentData = nbt.getCompound("explock");
         }
@@ -29,7 +30,7 @@ public abstract class SaveNbtMixin implements IPokemonDataSaver {
 
 
     @Inject(method = "saveToNBT", at = @At("TAIL"))
-    protected void saveToNbt(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir){
+    protected void saveToNbt(DynamicRegistryManager drm, NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir){
         if(persistentData != null){
             nbt.put("explock", persistentData);
         }
